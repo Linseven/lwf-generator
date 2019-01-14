@@ -1,0 +1,16 @@
+package ${package}.service.${moduleName};
+
+import ${package}.entity.${moduleName}.${className}Entity;
+import com.hyh.service.Base.IBaseServiceTk;
+
+
+/**
+ * ${comments}
+ *
+ * @author ${author}
+ * @date ${datetime}
+ */
+public interface I${className}Service extends IBaseServiceTk<${className}Entity> {
+
+}
+

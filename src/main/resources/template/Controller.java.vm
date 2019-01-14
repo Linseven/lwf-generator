@@ -1,0 +1,134 @@
+package ${package}.controller.${moduleName};
+
+import com.github.pagehelper.PageInfo;
+import com.hyh.common.Code.Utils.R;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.factory.annotation.Autowired;
+import com.hyh.common.Code.Utils.StringUtils;
+
+import ${package}.entity.${moduleName}.${className}Entity;
+import ${package}.service.${moduleName}.${className}Service;
+
+
+/**
+ * ${comments}
+ *
+ * @author ${author}
+ * @date ${datetime}
+ */
+@RestController
+@RequestMapping(value = "${moduleName}/${pathName}", produces = "application/json; charset=utf-8")
+@Api(value = "${moduleName}", description = "${comments}相关API")
+public class ${className}Controller {
+
+    /*${comments}*/
+     @Autowired
+     private ${className}Service ${classname}Service;
+
+    /*==================================${comments}begin====================================================*/
+
+    /**
+     * 新增${comments}
+     */
+    @RequestMapping(value = "add${className}", method = RequestMethod.POST)
+    @ApiOperation(value = "新增${comments}", httpMethod = "POST", notes = "入参说明：<br/>" +
+    #foreach ($column in $columns)
+    "$column.attrname:$column.comments<br/>" +
+    #end
+        "返回值：返回新${comments}状态<br/>"
+    )
+    public R add${className}(T${className}Entity ${classname}) {
+        if (${classname}Service.save(${classname}) > 0) {
+            return R.ok();
+        } else {
+            return R.error(204, "新增失败！");
+        }
+    }
+
+    /**
+    * 根据ID删除${comments}
+    */
+    @RequestMapping(value = "delete${className}ById", method = RequestMethod.POST)
+    @ApiOperation(value = "根据ID删除${comments}", httpMethod = "POST", notes = "入参说明：<br/>" +
+       "$pk.attrname：${comments}主键 <br/>" +
+       "返回值：返回删除${comments}状态<br/>"
+    )
+    public R delete${className}ById(String id) {
+        T${className}Entity ${classname}Entity = new T${className}Entity();
+        ${classname}Entity.setId(id);
+        ${classname}Entity.setStatus(4);
+        if (${classname}Service.updateByPrimaryKeySelective(${classname}Entity) > 0) {
+            return R.ok();
+        } else {
+            return R.error(204, "删除失败");
+        }
+    }
+
+    /**
+    * 根据主键修改${comments}
+    */
+    @RequestMapping(value = "update${className}ById", method = RequestMethod.POST)
+    @ApiOperation(value = "根据主键修改${comments}", httpMethod = "POST", notes = "入参说明：<br/>" +
+    #foreach ($column in $columns)
+    "$column.attrname:$column.comments<br/>" +
+    #end
+    "返回值：返回修改${comments}状态<br/>"
+    )
+    public R update${className}ById(T${className}Entity ${classname}Entity) {
+        if (${classname}Service.updateByPrimaryKeySelective(${classname}Entity) > 0) {
+            return R.ok();
+        } else {
+            return R.error(204, "修改失败！");
+        }
+    }
+
+    /**
+    * 根据主键查询${comments}
+    */
+    @RequestMapping(value = "select${className}ById", method = RequestMethod.GET)
+    @ApiOperation(value = "根据主键查询${comments}", httpMethod = "GET", notes = "入参说明：<br/>" +
+    "$pk.columnName：${comments}主键 <br/>" +
+    "返回值：返回该${comments}ID信息<br/>" +
+    #foreach ($column in $columns)
+    "$column.attrname:$column.comments<br/>" +
+    #end""
+    )
+    public R select${className}ById(String id) {
+        T${className}Entity ${classname}Entity = ${classname}Service.selectByKey(id);
+        if (${classname}Entity != null) {
+            return R.ok().put("data", ${classname}Entity);
+        } else {
+            return R.error(204, "没有查询记录！");
+        }
+    }
+
+    /**
+    *根据条件查询${comments}
+    */
+    @RequestMapping(value = "selectAll${className}", method = RequestMethod.GET)
+    @ApiOperation(value = "根据条件查询${comments}", httpMethod = "GET", notes = "入参说明：<br/>" +
+         "pageNum：第几页 <br/>" +
+         "pageSize：每页大小 <br/>" +
+     #foreach ($column in $columns)
+     "$column.attrname:$column.comments<br/>" +
+     #end
+          "返回值：返回查询${comments}列表<br/>" +
+          "备注：不查询的属性不传，不要传“”回来<br/>"
+    )
+    public R selectAll${className}(T${className}Entity ${classname}Entity,
+                                 @RequestParam(value = "pageNum", required = false, defaultValue = "1") int pageNum,
+                                 @RequestParam(value = "pageSize", required = false, defaultValue = "10") int pageSize) {
+        ${classname}Entity.setStatus(1);
+        List list = ${classname}Service.selectPageByRecord(pageNum, pageSize, ${classname}Entity);
+        PageInfo<Map<String, Object>> page = new PageInfo<>(list);
+        if (list.size() > 0) {
+            return R.ok().put("data", page);
+        } else {
+            return R.error(204, "没有查询记录！");
+        }
+    }
+
+    /*==================================${comments}end====================================================*/
+
+}

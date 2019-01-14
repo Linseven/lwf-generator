@@ -1,0 +1,11 @@
+package ${package}.service.${moduleName}.impl;
+
+import ${package}.dao.${moduleName}.${className}Dao;
+import ${package}.entity.${moduleName}.${className}Entity;
+import ${package}.service.${moduleName}.${className}Service;
+
+
+@Service
+public class ${className}ServiceImpl extends BaseServiceTk<${className}Entity> implements ${className}Service {
+
+}

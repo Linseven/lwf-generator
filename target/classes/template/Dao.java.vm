@@ -1,0 +1,16 @@
+package ${package}.dao.${moduleName};
+
+import ${package}.entity.${moduleName}.${className}Entity;
+import org.springframework.stereotype.Repository;
+import tk.mybatis.mapper.common.Mapper;
+
+/**
+ * ${comments}
+ * 
+ * @author ${author}
+ * @date ${datetime}
+ */
+@Repository
+public interface ${className}Dao extends Mapper<${className}Entity> {
+	
+}
