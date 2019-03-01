@@ -11,6 +11,6 @@ import tk.mybatis.mapper.common.Mapper;
  * @date ${datetime}
  */
 @Repository
-public interface ${className}Dao extends Mapper<${className}Entity> {
+public interface I${className}Dao extends Mapper<${className}Entity> {
 	
 }

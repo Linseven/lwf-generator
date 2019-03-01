@@ -16,7 +16,7 @@ import javax.persistence.Table;
  * @email ${email}
  * @date ${datetime}
  */
-@Table("${tableName}")
+@Table(name ="${tableName}")
 public class ${className}Entity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
