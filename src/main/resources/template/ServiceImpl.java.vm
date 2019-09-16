@@ -4,6 +4,7 @@ import ${package}.dao.${moduleName}.I${className}Dao;
 import ${package}.entity.${moduleName}.${className}Entity;
 import ${package}.service.${moduleName}.I${className}Service;
 import com.hyh.service.Base.Impl.BaseServiceTk;
+import org.springframework.stereotype.Service;
 
 @Service
 public class ${className}ServiceImpl extends BaseServiceTk<${className}Entity> implements I${className}Service {

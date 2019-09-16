@@ -41,10 +41,11 @@ public class ${className}Controller {
     #foreach ($column in $columns)
     "$column.attrname:$column.comments<br/>" +
     #end
-        "返回值：返回新${comments}状态<br/>"
+    "返回值：返回新${comments}状态<br/>"
     )
-    public R add${className}(${className}Entity ${classname}) {
-        if (${classname}Service.save(${classname}) > 0) {
+    public R add${className}(${className}Entity ${classname}Entity) {
+        ${classname}Entity.setId(UUID.randomUUID().toString());
+        if (${classname}Service.save(${classname}Entity) > 0) {
             return R.ok();
         } else {
             return R.error(204, "新增失败！");
@@ -59,7 +60,7 @@ public class ${className}Controller {
        "$pk.attrname：${comments}主键 <br/>" +
        "返回值：返回删除${comments}状态<br/>"
     )
-    public R delete${className}ById(String id) {
+    public R delete${className}ById(@RequestParam("id") String id) {
         ${className}Entity ${classname}Entity = new ${className}Entity();
         ${classname}Entity.setId(id);
         ${classname}Entity.setStatus("4");
@@ -81,6 +82,9 @@ public class ${className}Controller {
     "返回值：返回修改${comments}状态<br/>"
     )
     public R update${className}ById(${className}Entity ${classname}Entity) {
+        if(${classname}Entity.getId() == null || "".equals(${classname}Entity.getId())){
+            return R.error(204,"id必须传且不能为空");
+        }
         if (${classname}Service.updateByPrimaryKeySelective(${classname}Entity) > 0) {
             return R.ok();
         } else {
@@ -99,7 +103,7 @@ public class ${className}Controller {
     "$column.attrname:$column.comments<br/>" +
     #end""
     )
-    public R select${className}ById(String id) {
+    public R select${className}ById(@RequestParam("id") String id) {
         ${className}Entity ${classname}Entity = ${classname}Service.selectByKey(id);
         if (${classname}Entity != null) {
             return R.ok().put("data", ${classname}Entity);
@@ -118,8 +122,11 @@ public class ${className}Controller {
      #foreach ($column in $columns)
      "$column.attrname:$column.comments<br/>" +
      #end
-          "返回值：返回查询${comments}列表<br/>" +
-          "备注：不查询的属性不传，不要传“”回来<br/>"
+         "返回值：返回查询${comments}列表<br/>" +
+     #foreach ($column in $columns)
+     "$column.attrname:$column.comments<br/>" +
+     #end
+     "备注：不查询的属性不传，不要传“”回来<br/>"
     )
     public R selectAll${className}(${className}Entity ${classname}Entity,
                                  @RequestParam(value = "pageNum", required = false, defaultValue = "1") int pageNum,
